@@ -118,9 +118,12 @@ $.fn.extend {}=
         $(settings.tipContent).first().find("li:nth-child(#{current_step})").data('target').popover('hide')
         settings.postStepCallback($(@).data('touridx')) if settings.postStepCallback != $.noop
         next_tip = $(settings.tipContent).first().find("li:nth-child(#{current_step + 1})")?.data('target')
+        targetOffset = $(next_tip_id).offset().top - 300;
         setCookieStep(current_step + 1)
         if next_tip?
+          $('html, body').animate({scrollTop: targetOffset}, 1000)
           next_tip.popover('show')
+          return false #so that href will get ignored
         else
           # last tip
           settings.postRideCallback() if settings.postRideCallback != $.noop 
