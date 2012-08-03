@@ -124,10 +124,10 @@
               settings.postStepCallback($(this).data('touridx'));
           }
           next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('target') : void 0;
-          var next_tip_id = '#' + next_tip.attr('id');
-          var targetOffset = $(next_tip_id).offset().top - 300;
           setCookieStep(current_step + 1);
           if (next_tip != null) {
+              var next_tip_id = '#' + next_tip.attr('id');
+              var targetOffset = $(next_tip_id).offset().top - 300;
               $('html, body').animate({scrollTop: targetOffset}, 1000);
               next_tip.popover('show');
               return false;  //so that href will get ignored
@@ -135,6 +135,8 @@
               if (settings.postRideCallback !== $.noop) {
                   return settings.postRideCallback();
               }
+              return false;
+
           }
       });
       });
