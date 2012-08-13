@@ -65,7 +65,7 @@ Bootstrap Tour is inspired by [Joyride](http://www.zurb.com/playground/jquery-jo
 
 ## GILD
 
-Bootstrap Tour was made by [GILD](http://www.gild.com).
+Bootstrap Tour was made by [GILD](http://www.gild.com) and updated by David Byrd from [Shoptiques](http://shoptiques.com)
 
 ## MIT Open Source License
 
