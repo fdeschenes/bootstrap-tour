@@ -121,18 +121,24 @@
           log("current step: " + current_step);
           $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
           if (settings.postStepCallback !== $.noop) {
-            settings.postStepCallback($(this).data('touridx'));
+              settings.postStepCallback($(this).data('touridx'));
           }
           next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('target') : void 0;
           setCookieStep(current_step + 1);
           if (next_tip != null) {
-            return next_tip.popover('show');
+              var next_tip_id = '#' + next_tip.attr('id');
+              var targetOffset = $(next_tip_id).offset().top - 300;
+              $('html, body').animate({scrollTop: targetOffset}, 1000);
+              next_tip.popover('show');
+              return false;  //so that href will get ignored
           } else {
-            if (settings.postRideCallback !== $.noop) {
-              return settings.postRideCallback();
-            }
+              if (settings.postRideCallback !== $.noop) {
+                  return settings.postRideCallback();
+              }
+              return false;
+
           }
-        });
+      });
       });
     }
   });
