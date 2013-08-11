@@ -1,4 +1,4 @@
-# bootstrap-tour.js v0.0.2
+# bootstrap-tour.js v0.0.3
 # Copyright 2012 Gild, Inc.
 #
 # Free to use under the MIT license.
@@ -107,13 +107,13 @@ $.fn.extend {}=
         $target.popover('show') if idx == (first_step - 1)
 
       # handle the close button
-      $('a.tour-tip-close').live 'click', ->
+      $(document).on 'click', 'a.tour-tip-close', ->
         current_step = $(@).data('touridx')
         $(settings.tipContent).first().find("li:nth-child(#{current_step})").data('target').popover('hide')
         setCookieStep(current_step + 1) if settings.nextOnClose
 
       # handle the next and done buttons
-      $('a.tour-tip-next').live 'click', ->
+      $(document).on 'click', 'a.tour-tip-next', ->
         current_step = $(@).data('touridx')
         log "current step: #{current_step}"
         $(settings.tipContent).first().find("li:nth-child(#{current_step})").data('target').popover('hide')
@@ -125,7 +125,7 @@ $.fn.extend {}=
           targetOffset = $(next_tip_id).offset().top - 300;
           $('html, body').animate({scrollTop: targetOffset}, 1000)
           next_tip.popover('show')
-          return false #so that href will get ignored
         else
           # last tip
-          settings.postRideCallback() if settings.postRideCallback != $.noop 
+          settings.postRideCallback() if settings.postRideCallback != $.noop
+        return false #so that href will get ignored
