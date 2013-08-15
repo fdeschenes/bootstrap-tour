@@ -41,6 +41,7 @@ $.fn.extend {}=
       cookieDomain: false                  # Will this cookie be attached to a domain, ie. '.mydomain.com'
       postRideCallback: $.noop             # A method to call once the tour closes
       postStepCallback: $.noop             # A method to call after each step
+      postCloseCallback: $.noop            # A method to call if the tour is closed before it reaches the end
       nextOnClose: false                   # If cookies are enabled, increment the current step on close
       debug: false
       
@@ -66,7 +67,12 @@ $.fn.extend {}=
 
     setCookieStep = (step) ->
       cookie(settings.cookieName, "#{step}", { expires: 365, domain: settings.cookieDomain }) if settings.cookieMonster
-
+    
+    scrollTo = (target) ->
+      targetOffset = target.offset().top - 300;
+      $('html, body').animate({scrollTop: targetOffset}, 500)
+      target.popover('show')
+      
     return @each () ->
 
       $tipContent = $(settings.tipContent).first()
@@ -97,19 +103,23 @@ $.fn.extend {}=
           trigger: 'manual'
           html: true
           title: if tip_data['title']? then "#{tip_data['title']} <a class=\"tour-tip-close close\" data-touridx=\"#{idx + 1}\">&times;</a>" else null
-          content: "<p>#{$li.html()}</p><p style=\"text-align: right\"><a href=\"#\" class=\"tour-tip-next btn btn-success\" data-touridx=\"#{idx + 1}\">#{if (idx + 1) < $tips.length then 'Next <i class="icon-chevron-right icon-white"></i>' else '<i class="icon-ok icon-white"></i> Done'}</a></p>"
+          content: "<p>#{$li.html()}</p><div class=\"text-right\"><a href=\"#\" class=\"tour-tip-next btn btn-success\" data-touridx=\"#{idx + 1}\">#{if (idx + 1) < $tips.length then 'Next <i class="icon-chevron-right icon-white"></i>' else '<i class="icon-ok icon-white"></i> Done'}</a></div>"
           placement: tip_data['placement'] || 'right'
         
         # save the target element in the tip node
         $li.data('target', $target)
         
         # show the first tip
-        $target.popover('show') if idx == (first_step - 1)
+        if idx == (first_step - 1)
+          scrollTo($target)
 
       # handle the close button
       $(document).on 'click', 'a.tour-tip-close', ->
         current_step = $(@).data('touridx')
         $(settings.tipContent).first().find("li:nth-child(#{current_step})").data('target').popover('hide')
+        settings.postCloseCallback(current_step) if settings.postCloseCallback != $.noop
+        # set the current step to the last one if nextOnClose is set to close
+        current_step = $(settings.tipContent).first().find("li").length if settings.nextOnClose is 'close'
         setCookieStep(current_step + 1) if settings.nextOnClose
 
       # handle the next and done buttons
@@ -122,9 +132,7 @@ $.fn.extend {}=
         setCookieStep(current_step + 1)
         if next_tip?
           next_tip_id = '#' + next_tip.attr('id');
-          targetOffset = $(next_tip_id).offset().top - 300;
-          $('html, body').animate({scrollTop: targetOffset}, 1000)
-          next_tip.popover('show')
+          scrollTo($(next_tip_id))
         else
           # last tip
           settings.postRideCallback() if settings.postRideCallback != $.noop

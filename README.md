@@ -12,60 +12,61 @@ Bootstrap Tour is inspired by [Joyride](http://www.zurb.com/playground/jquery-jo
 
     /* Boostrap Tooltip and Popup javascripts needs to be attached */
     <script src="bootstrap-tooltip.js" type="text/javascript"></script>
-	<script src="bootstrap-popup.js" type="text/javascript"></script>
-	
+    <script src="bootstrap-popup.js" type="text/javascript"></script>
+  
     /* Then attach the Bootstrap Tour plugin */
-    <script src="bootstrap-tour.js" type="text/javascript"></script>
+    <script src="bootstrap-tour.js" type="text/javascript"></script>    
 
 ### Define the attach points
 
-	/* Bootstrap Tour can be attached to any element with a unique ID, in any order */
-	<h3 id="yourHeaderID"></h3>
-	<p id="yourParagraphID">
+    /* Bootstrap Tour can be attached to any element with a unique ID, in any order */
+    <h3 id="yourHeaderID"></h3>
+    <p id="yourParagraphID">
 
-	<a id="yourAnchorID" href="#url">
+    <a id="yourAnchorID" href="#url">
 
 ### Create Your Tour Outline
 
-	/* Each tip is set within this <ol>. */
-	/* This creates the order the tips are displayed */
-	<ol id="chooseID">
-	  /* data-target needs to be the same as the parent it will attach to */
-	  <li data-target="#newHeader">Tip content...</li>
-	  /* using 'data-title' lets you have custom title */
-	  <li data-target="#parentElementID" data-title="Second Feature">Content...</li>
-	  /* you can use 'data-placement' to define where the popup will appear */
-	  <li data-target="#parentElementID" data-placement="bottom">Content...</li>
-	</ol>
+    /* Each tip is set within this <ol>. */
+    /* This creates the order the tips are displayed */
+    <ol id="chooseID">
+        /* data-target needs to be the same as the parent it will attach to */
+        <li data-target="#newHeader">Tip content...</li>
+        /* using 'data-title' lets you have custom title */
+        <li data-target="#parentElementID" data-title="Second Feature">Content...</li>
+        /* you can use 'data-placement' to define where the popup will appear */
+        <li data-target="#parentElementID" data-placement="bottom">Content...</li>
+    </ol>
 
 ### Activate the tour
 
-	/* Launching the tour when to page is loaded */
-	<script type="text/javascript">
-	  $(window).load(function() {
-	    $(this).featureTour({
-	      /* Options will go here */
-	    });
-	  });
-	</script>
-	
+    /* Launching the tour when to page is loaded */
+    <script type="text/javascript">
+        $(window).load(function() {
+            $(this).featureTour({
+                /* Options will go here */
+            });
+        });
+    </script>
+  
 ### Options
 
-	/* Setting your options to override the defaults */
-	$(this).featureTour({
-	  'cookieMonster': true,           // true/false for whether cookies are used
-	  'cookieName': 'myHomepageTour',  // choose your own cookie name
-	  'cookieDomain': false,           // set to false or yoursite.com
-	  'tipContent': '#tourContent',    // The ID of the <ol> used for content
-	  'postRideCallback': $.noop,      // A method to call once the tour closes
-      'postStepCallback': $.noop,      // A method to call after each step
-      'nextOnClose': false,            // If cookies are enabled, increment the current step on close
-      'debug': false
-	});
+    /* Setting your options to override the defaults */
+    $(this).featureTour({
+        'cookieMonster': true,           // true/false for whether cookies are used
+        'cookieName': 'myHomepageTour',  // choose your own cookie name
+        'cookieDomain': false,           // set to false or yoursite.com
+        'tipContent': '#tourContent',    // The ID of the <ol> used for content
+        'postRideCallback': $.noop,      // A method to call once the tour closes
+        'postStepCallback': $.noop,      // A method to call after each step
+        'postCloseCallback': $.noop,     // A method to call if the tour is closed before it reaches the end
+        'nextOnClose': false,            // If cookies are enabled, increment the current step on close or if set to 'close', it'll complete the tour.
+        'debug': false
+    });
 
 ## GILD
 
-Bootstrap Tour was made by [GILD](http://www.gild.com) and updated by David Byrd from [Shoptiques](http://shoptiques.com)
+Bootstrap Tour was made by [GILD](http://www.gild.com) and updated by David Byrd from [Shoptiques](http://shoptiques.com) and [Francois Deschenes](http://francoisdeschenes.com)
 
 ## MIT Open Source License
 
