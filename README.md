@@ -10,9 +10,9 @@ Bootstrap Tour is inspired by [Joyride](http://www.zurb.com/playground/jquery-jo
 
 ### Add Bootstrap Tour to your page
 
-    /* Boostrap Tooltip and Popup javascripts needs to be attached */
+    /* Boostrap Tooltip and Popover javascripts needs to be attached */
     <script src="bootstrap-tooltip.js" type="text/javascript"></script>
-    <script src="bootstrap-popup.js" type="text/javascript"></script>
+    <script src="bootstrap-popover.js" type="text/javascript"></script>
   
     /* Then attach the Bootstrap Tour plugin */
     <script src="bootstrap-tour.js" type="text/javascript"></script>    
@@ -34,7 +34,7 @@ Bootstrap Tour is inspired by [Joyride](http://www.zurb.com/playground/jquery-jo
         <li data-target="#newHeader">Tip content...</li>
         /* using 'data-title' lets you have custom title */
         <li data-target="#parentElementID" data-title="Second Feature">Content...</li>
-        /* you can use 'data-placement' to define where the popup will appear */
+        /* you can use 'data-placement' to define where the popover will appear */
         <li data-target="#parentElementID" data-placement="bottom">Content...</li>
     </ol>
 
